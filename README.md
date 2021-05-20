@@ -21,3 +21,6 @@ For periodic boundary conditions:
 
 ## Important
 This lybrary requires [GeoPDEs periodic](https://github.com/rafavzqz/geopdes/tree/periodic) software.
+
+### Examples 
+Two examples are available. Run the Matlab file **approximation_examples.m** to give a look. 

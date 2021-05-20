@@ -20,4 +20,4 @@ For periodic boundary conditions:
 - **Lyche_c_2D_Periodic.m** as previous but between Lyche_1D_Periodic and Lyche_c_1D_Periodic.
 
 ## Important
-This lybrary requires GeoPDEs periodic software.
+This lybrary requires [GeoPDEs periodic](https://github.com/rafavzqz/geopdes/tree/periodic) software.

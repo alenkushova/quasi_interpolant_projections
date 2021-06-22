@@ -1,4 +1,4 @@
-% OP_U_V: assemble the mass matrix M = [m(i,j)], m(i,j) = (mu u_j, v_i).
+% OP_U_V: assemble the mass matrix M = [m(i,j)], m(i,j) = (mu u_j, v_i), with mu and u_j vector-valued and v_i scalar-valued.
 %
 %   mat = op_u_v (spu, spv, msh, coeff);
 %   [rows, cols, values] = op_u_v (spu, spv, msh, coeff);
@@ -37,11 +37,12 @@ function varargout = my_op_u_v (spu, spv, msh, coeff)
   
   shpu  = reshape (spu.shape_functions, spu.ncomp, msh.nqn, spu.nsh_max, msh.nel);
   coeff = reshape (coeff, spu.ncomp, msh.nqn, 1, msh.nel);
-  for jncomp = 1:spu.ncomp
-    for insh = 1:spu.nsh_max
-      shpu(jncomp,:,insh,:) = shpu(jncomp,:,insh,:).*coeff(jncomp,:,1,:);
-    end
-  end
+  shpu = bsxfun (@times, shpu, coeff);
+%   for jncomp = 1:spu.ncomp
+%     for insh = 1:spu.nsh_max
+%       shpu(jncomp,:,insh,:) = shpu(jncomp,:,insh,:).*coeff(jncomp,:,1,:);
+%     end
+%   end
   shpv = reshape (spv.shape_functions, spv.ncomp, msh.nqn, spv.nsh_max, msh.nel);
   
   rows = zeros (msh.nel * spu.nsh_max * spv.nsh_max, 1);

@@ -8,6 +8,7 @@
 %   msh:   object defining the domain partition and the quadrature rule (see msh_cartesian)
 %   u:     vector of dof weights
 %   uex:   vector of dof weights of the exact solution
+%   coeff: handle function for the coefficients of the exact solution
 %
 % OUTPUT:
 %

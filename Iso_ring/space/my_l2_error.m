@@ -1,6 +1,6 @@
 % MY_L2_ERROR: Evaluate the error in L^2 norm.
 %
-%   [errl2, errl2_elem] = my_l2_error (space, msh, u, uex);
+%   [errl2, errl2_elem] = my_l2_error (space, msh, u, uex, coeff);
 %
 % INPUT:
 %
@@ -8,6 +8,7 @@
 %     msh:      structure containing the domain partition and the quadrature rule (see msh_cartesian/msh_evaluate_col)
 %     u:        vector of dof weights
 %     uex:      vector of dof weights of the exact solution
+%     coeff:    values of coeffitients of the exact solution (example: c(x)*real(exp(1i*\omega*t) )
 %
 % OUTPUT:
 %

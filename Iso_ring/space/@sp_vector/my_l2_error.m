@@ -10,6 +10,8 @@
 %   u:     vector of dof weights
 %   uex:   vector of dof weights of the exact solution
 %   spex:  object defining the space of discrete functions (see sp_scalar)
+%   coeff: handle function for the coeffitient of the exact solution 
+%
 % OUTPUT:
 %
 %     errl2:  error in L^2 norm

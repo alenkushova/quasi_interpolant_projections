@@ -42,14 +42,14 @@ method_data.regularity   = [1 1];  % Regularity of the splines
 method_data.nsub         = [64 64];  % Number of subdivisions
 method_data.nquad        = [4 4];  % Points for the Gaussian quadrature rule
 method_data.T            = 1;      % Final time (Time step * Numero di elementi in tempo)
-method_data.k            = 1/2000; % Time step così varia solo lui.
+method_data.k            = 1/64; % Time step così varia solo lui.
 T = method_data.T; k = method_data.k;
 
 
 %% 3) CALL TO THE SOLVER
 tic
     [geometry, msh, space_p, L, space_v, P] = ...
-                      solve_wave_dirichlet_G_2D_iso (problem_data, method_data);
+                      solve_wave_dirichlet_QI_2D_iso (problem_data, method_data);
 toc
 
 
@@ -110,7 +110,7 @@ sp_const_D_H = D_space_H.constructor(msh_H);
 toc
 % errore in spazio
 
-for n = 1 : 200 : round(T/k)+1
+for n = 1 : round(T/k) : round(T/k)+1
     % errore in norma L2 per soluzione p(x,t) per ogni istante t:
     error_l2_p = my_l2_error (sp_const_p_H, msh_H, L(:,n),...
             [Du0_x1; Du0_x2], sp_const_D_H,@(x,y) c(x, y)*real(exp(1i*omega*(n*k-k))) );
@@ -118,7 +118,7 @@ for n = 1 : 200 : round(T/k)+1
 
     % errore in norma L2 per soluzione v(x,t) per ogni istante t:
     error_l2_v = my_l2_error (sp_const_v_H, msh_H, P(:,n),...
-            u_0, space_H, @(x, y) real(1i*omega*exp(1i*omega*(n*k-k))));
+            u_0, space_H, @(x, y) ones(size(x))*real(1i*omega*exp(1i*omega*(n*k-k))));
     err_v = [err_v, error_l2_v];
     n 
     toc
@@ -133,7 +133,7 @@ toc
 %% save solutions
 n = method_data.nsub(1);
 filename = ['test_c_sine_' num2str(n) 'x' num2str(n) ...
-                'x' num2str(1/k) 'drchlt_iso.mat'];
+                'x' num2str(T/k) 'drchlt_iso.mat'];
 save(filename)
 fprintf ('The result is saved in the file %s \n \n', filename);
 

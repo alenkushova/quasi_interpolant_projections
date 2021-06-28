@@ -40,17 +40,18 @@ problem_data.h = @(x, y, ind) zeros (size (x)); % for pressures.
 clear method_data
 method_data.degree       = [2 2];  % Degree of the splines
 method_data.regularity   = [1 1];  % Regularity of the splines
-method_data.nsub         = [64 64];  % Number of subdivisions
+method_data.nsub         = [32 32];  % Number of subdivisions
 method_data.nquad        = [4 4];  % Points for the Gaussian quadrature rule
 method_data.T            = 1;      % Final time (Time step * Numero di elementi in tempo)
 method_data.k            = 1/2000; % Time step così varia solo lui.
 T = method_data.T; k = method_data.k;
 
 
+
 %% 3) CALL TO THE SOLVER
 tic
     [geometry, msh, space_p, L, space_v, P] = ...
-                      solve_wave_dirichlet_G_2D_iso (problem_data, method_data);
+                      solve_wave_dirichlet_QI_2D_iso (problem_data, method_data);
 toc
 
 
@@ -101,7 +102,7 @@ quiver(XP,YP,exact_p1(T),exact_p2(T)), hold off, axis ([0 2 0 2])
 title ('Exact solution at T = 1')
 
 %% error with overkill solution 
-tictic
+tic
 err_p = []; err_v = [];
 D_space_H    = sp_vector ({space_u1, space_u2}, msh_H, 'curl-preserving'); 
 sp_const_p_H = space_p.constructor(msh_H);
@@ -117,7 +118,7 @@ for n = 1 : 200 : round(T/k)+1
 
     % errore in norma L2 per soluzione v(x,t) per ogni istante t:
     error_l2_v = my_l2_error (sp_const_v_H, msh_H, P(:,n),...
-            u_0, space_H, @(x, y) real(1i*omega*exp(1i*omega*(n*k-k))));
+            u_0, space_H, @(x, y)ones(size(x))*real(1i*omega*exp(1i*omega*(n*k-k))));
     err_v = [err_v, error_l2_v];
     n
     toc

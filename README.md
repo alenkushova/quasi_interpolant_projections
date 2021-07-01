@@ -21,6 +21,10 @@ For periodic boundary conditions:
 - **Lyche_2D_Periodic.m** is the tensor product of 2 univariate Lyche_1D_Periodic projections.
 - **Lyche_c_2D_Periodic.m** as previous but between Lyche_1D_Periodic and Lyche_c_1D_Periodic.
 
+Foe mixed periodic and dirichlet boundary conditions:
+- **Lyche_c_2D_Mixed.m** is the 2D quasi interpolant projection for mixed boundary conditions. We considere the space with dirichlet
+ boundary conditions in x_direction and periodic in y_direction. (*Lyche_1D* \otimes *Lyche_c_1D_Periodic*) \times (*Lyche_c_1D_new* \otimes *Lyche_1D_Periodic*)
+
 ## Important
 This lybrary requires [GeoPDEs periodic](https://github.com/rafavzqz/geopdes/tree/periodic) software.
 
